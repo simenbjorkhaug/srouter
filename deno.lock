@@ -1,0 +1,34 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:@bjorkhaug/sdi": "npm:@bjorkhaug/sdi@0.0.3_@bjorkhaug+sreflect@0.0.2",
+      "npm:@bjorkhaug/smethod": "npm:@bjorkhaug/smethod@0.0.1_@bjorkhaug+sreflect@0.0.2",
+      "npm:@bjorkhaug/sreflect": "npm:@bjorkhaug/sreflect@0.0.2",
+      "npm:@bjorkhaug/surl": "npm:@bjorkhaug/surl@0.0.1"
+    },
+    "npm": {
+      "@bjorkhaug/sdi@0.0.3_@bjorkhaug+sreflect@0.0.2": {
+        "integrity": "sha512-pmnIdALiBHQi3U1IzXWODW/QpT3oxei7q501aQwP01j9HD7BN7ZDxrufBro/EaOgjkMQOVf70AGuBKkMIvYdIg==",
+        "dependencies": {
+          "@bjorkhaug/sreflect": "@bjorkhaug/sreflect@0.0.2"
+        }
+      },
+      "@bjorkhaug/smethod@0.0.1_@bjorkhaug+sreflect@0.0.2": {
+        "integrity": "sha512-U+ZZwhPBscK/TG6Uo501ZKOovIOpjwvC5aCRkMtsWVdOgFch+UbSUp/zlGIs1YwFVNPWo7000ah0hh+LUgw4jg==",
+        "dependencies": {
+          "@bjorkhaug/sreflect": "@bjorkhaug/sreflect@0.0.2"
+        }
+      },
+      "@bjorkhaug/sreflect@0.0.2": {
+        "integrity": "sha512-FRt+Yo96soeZcVjKiPPfOixzCP0NmeqZ8s0dSHXeyTIJddzKi2TM0PXEkTA+qjT9pOEmCfnVsQwaqbeFnqjSMA==",
+        "dependencies": {}
+      },
+      "@bjorkhaug/surl@0.0.1": {
+        "integrity": "sha512-+t+agYOwYQPSrmZolWJrGGdzkrIoDtUrXsA79yFkW9UKBwQ+DoHc8GaX0nOAYit+gufPtUrXTx2vpzK5tt4zfg==",
+        "dependencies": {}
+      }
+    }
+  },
+  "remote": {}
+}

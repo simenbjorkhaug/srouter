@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run --watch -c tsconfig.json --allow-net ./server.ts"
+  },
+  "fmt": {
+    "semiColons": false,
+    "singleQuote": true
+  }
+}
