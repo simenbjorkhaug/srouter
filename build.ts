@@ -22,12 +22,10 @@ await build({
       registry: 'https://registry.npmjs.org/',
       scope: '@bjorkhaug',
     },
-    dependencies: {
-      '@bjorkhaug/smethod': '^0.0.1',
-      '@bjorkhaug/surl': '^0.0.1',
-    },
     peerDependencies: {
       '@bjorkhaug/sreflect': '^0.0.2',
+      '@bjorkhaug/smethod': '^0.0.1',
+      '@bjorkhaug/surl': '^0.0.1',
     },
     repository: {
       type: 'git',

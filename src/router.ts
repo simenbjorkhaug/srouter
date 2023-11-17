@@ -3,16 +3,16 @@ import { route as surl } from 'npm:@bjorkhaug/surl'
 import { Methods } from 'npm:@bjorkhaug/smethod'
 import { BASE_ERROR, BASE_MIDDLEWARE, ROUTE_MIDDLEWARE } from './symbols.ts'
 
-export async function route(
+export async function route<T>(
+  target: T,
   request: Request,
-  target: { new (): any },
 ) {
   const url = new URL(request.url)
 
-  if (Reflect.hasMetadata(BASE_MIDDLEWARE, target.constructor)) {
+  if (Reflect.hasMetadata(BASE_MIDDLEWARE, (target as any).constructor)) {
     const middleware = Reflect.getMetadata(
       BASE_MIDDLEWARE,
-      target.constructor,
+      (target as any).constructor,
     ) as (Function)[]
 
     for (const fn of middleware) {
@@ -22,7 +22,7 @@ export async function route(
     }
   }
 
-  const routes = ((Methods.getRoutes(target.constructor) as {
+  const routes = ((Methods.getRoutes((target as any).constructor) as {
     route: string
     method: string
     handler: Function
@@ -46,7 +46,7 @@ export async function route(
   for (const { method, route, handler } of routes) {
     const segment = route.replace(/\/+/g, '/')
 
-    if (request.method.toUpperCase() === method) {
+    if (request.method.toUpperCase() === method.toUpperCase()) {
       try {
         if (segment === url.pathname) {
           if (Reflect.hasMetadata(ROUTE_MIDDLEWARE, handler)) {
@@ -54,6 +54,7 @@ export async function route(
               ROUTE_MIDDLEWARE,
               handler,
             ) as Function[]
+
             for (const fn of middleware) {
               if (typeof fn === 'function') {
                 await fn.call(target, { request, params: new Map() })
@@ -61,11 +62,10 @@ export async function route(
             }
           }
 
-          const result = await handler.call(target, {
+          return await handler.call(target, {
             request,
             params: new Map(),
           })
-          return result
         }
 
         const match = surl(segment, url)
@@ -76,6 +76,7 @@ export async function route(
               ROUTE_MIDDLEWARE,
               handler,
             ) as Function[]
+
             for (const fn of middleware) {
               if (typeof fn === 'function') {
                 await fn.call(target, { request, params: new Map() })
@@ -83,12 +84,14 @@ export async function route(
             }
           }
 
-          const result = await handler.call(target, { request, params: match })
-          return result
+          return await handler.call(target, { request, params: match })
         }
       } catch (error) {
-        if (Reflect.hasMetadata(BASE_ERROR, target.constructor)) {
-          const fn = Reflect.getMetadata(BASE_ERROR, target.constructor)
+        if (Reflect.hasMetadata(BASE_ERROR, (target as any).constructor)) {
+          const fn = Reflect.getMetadata(
+            BASE_ERROR,
+            (target as any).constructor,
+          )
 
           if (typeof fn === 'function') {
             return fn.call(target, { request, params: new Map(), error })
